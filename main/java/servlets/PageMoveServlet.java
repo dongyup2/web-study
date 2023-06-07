@@ -3,7 +3,6 @@ package servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,20 +22,14 @@ public class PageMoveServlet extends HttpServlet {
 		LoginPageServlet loginPageServlet = new LoginPageServlet();
 		
 		response.setContentType("text/html;charset=utf-8");
-		ServletContext context = getServletContext();
-		ArrayList<UserVo> loginlist = (ArrayList<UserVo>) context.getAttribute("loginlist");
-		if (loginlist == null) { // 리스트가 없으면 로그인 실패 처리
-            response.sendRedirect("fail.jsp");
-            return;
-        }
-		
+
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 
 		boolean success = false;
 		for (UserVo userVo : loginPageServlet.loginlist) {
 			if (userVo.getId().equals(id) && userVo.getPassword().equals(password)) {
-				success = true;	
+				success = true;
 				break;
 			}
 		}
